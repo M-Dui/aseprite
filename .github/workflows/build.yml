@@ -14,7 +14,7 @@ jobs:
             build_type: Release
             enable_ui: on
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
       with:
         submodules: 'recursive'
     - name: ccache
@@ -45,7 +45,7 @@ jobs:
         7z x skia.zip
         cmake -S . -B build -G Ninja \
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-          -DENABLE_UI=$enable_ui \
+          -DENABLE_UI=${{ matrix.enable_ui }} \
           -DENABLE_CCACHE=$enable_ccache \
           -DLAF_BACKEND=skia \
           -DSKIA_DIR=./skia \
@@ -55,7 +55,7 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v3
       with:
         name: aseprite
         path: |
